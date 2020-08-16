@@ -26,7 +26,8 @@ public class Check {
 //        BubbleSort.sort(arr2);
 //        InsertionSort.sort3(arr2);
 //        ShellSort.sort(arr2);
-        MergeSort.sort(arr2,0,arr2.length - 1);
+//        MergeSort.sort(arr2,0,arr2.length - 1);
+        QuickSort.sort(arr2,0,arr2.length - 1);
         boolean equals = true;
         for (int i = 0; i < arr.length; i++) {
             equals = arr[i] == arr2[i] ? true : false;

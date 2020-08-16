@@ -22,6 +22,10 @@ public class ShellSort {
         print(arr);
     }
 
+    /**
+     * Rnuth序列使用
+     * @param arr
+     */
     static void sort3(int[] arr){
         int h = 1;
         while (h <= arr.length / 3){
