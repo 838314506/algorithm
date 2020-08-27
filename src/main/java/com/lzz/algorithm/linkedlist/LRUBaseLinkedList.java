@@ -19,6 +19,16 @@ public class LRUBaseLinkedList<T> {
         LRUBaseLinkedList<Integer> linkedList = new LRUBaseLinkedList<>(10);
         linkedList.add(5);
         linkedList.add(6);
+        linkedList.add(7);
+        linkedList.add(8);
+        linkedList.add(9);
+        linkedList.add(11);
+        linkedList.add(3);
+        linkedList.add(2);
+        linkedList.add(1);
+        linkedList.add(0);
+        linkedList.add(4);
+        linkedList.add(5);
         System.out.println(linkedList.contain(5).getElement());
     }
 
@@ -51,14 +61,28 @@ public class LRUBaseLinkedList<T> {
             insert(node);
             return;
         }
+        if (lengh >= capacity){
+            throw new RuntimeException("超出链表容量");
+        }
 
-        if (contain(node) == null && lengh < capacity) {
+        if (contain(node) != null) {
+            delete(node);
             insert(node);
         }else {
             if (lengh >= capacity){
-                delete(node);
+                deleteTailNode();
             }
             insert(node);
+        }
+    }
+
+    public void deleteTailNode(){
+        SNode nodes = headNode;
+        while (nodes != null){
+            if (nodes.getNext() == null){
+                nodes.setElement(nodes);
+            }
+            nodes = nodes.getNext();
         }
     }
 
@@ -68,13 +92,24 @@ public class LRUBaseLinkedList<T> {
     }
 
     public void delete(T data) {
-        SNode element = headNode;
-        if (headNode.getElement().equals(data))
-            headNode = headNode.getNext();
-        while (element.getNext() != null) {
-            if (element.getNext().getElement().equals(data))
-                element.setNext(element.getNext().getNext());
+        SNode node = headNode;
+        if (node.getElement().equals(data)){
+            node.setElement(null);
+            if (node.getNext() != null){
+                headNode = node.getNext();
+            }
+            return;
         }
+
+       while (node.getNext() != null){
+           SNode nextNode = node.getNext();
+           if (nextNode.getElement().equals(data)){
+               nextNode.setElement(null);
+               node.setNext(nextNode.getNext());
+               return;
+           }
+           node = nextNode;
+       }
     }
 
 
