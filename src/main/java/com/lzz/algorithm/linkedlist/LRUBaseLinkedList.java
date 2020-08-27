@@ -16,7 +16,10 @@ public class LRUBaseLinkedList<T> {
     private int lengh;
     
     public static void main(String[] arg){
-        
+        LRUBaseLinkedList<Integer> linkedList = new LRUBaseLinkedList<>(10);
+        linkedList.add(5);
+        linkedList.add(6);
+        System.out.println(linkedList.contain(5).getElement());
     }
 
     public LRUBaseLinkedList() {
@@ -33,16 +36,22 @@ public class LRUBaseLinkedList<T> {
 
     public SNode contain(T data) {
         SNode node = headNode;
+        if (headNode.getElement() == data)
+            return headNode;
         while (node.getNext() != null) {
-            if (data.equals(node.getNext().getElement()))
-                return node.getNext();
+            node = node.getNext();
+            if (node != null && data.equals(node.getElement()))
+                return node;
         }
         return null;
     }
 
     public void add(T node) {
-        if (headNode.getElement() == null && headNode.getNext() == null)
+        if (headNode.getElement() == null && headNode.getNext() == null){
             insert(node);
+            return;
+        }
+
         if (contain(node) == null && lengh < capacity) {
             insert(node);
         }else {
