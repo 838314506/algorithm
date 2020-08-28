@@ -1,6 +1,5 @@
 package com.lzz.algorithm.linkedlist;
 
-import javax.sound.midi.Soundbank;
 
 /**
  * 基于单链表LRU算法
@@ -40,10 +39,11 @@ public class LRUBaseLinkedList<T> {
 
     public LRUBaseLinkedList(int capacity) {
         this.headNode = new SNode<>();
-        this.capacity = DEFAULT_CAPACITY;
+        this.capacity = capacity;
         this.lengh = 0;
     }
 
+    // TODO O(n)
     public SNode contain(T data) {
         SNode node = headNode;
         if (headNode.getElement() == data)
@@ -57,14 +57,6 @@ public class LRUBaseLinkedList<T> {
     }
 
     public void add(T node) {
-        if (headNode.getElement() == null && headNode.getNext() == null){
-            insert(node);
-            return;
-        }
-        if (lengh >= capacity){
-            throw new RuntimeException("超出链表容量");
-        }
-
         if (contain(node) != null) {
             delete(node);
             insert(node);
@@ -76,21 +68,30 @@ public class LRUBaseLinkedList<T> {
         }
     }
 
+    // TODO O(n)
     public void deleteTailNode(){
-        SNode nodes = headNode;
-        while (nodes != null){
-            if (nodes.getNext() == null){
-                nodes.setElement(nodes);
-            }
-            nodes = nodes.getNext();
+        SNode ptr = headNode;
+        if (headNode.getNext() == null){
+            return;
         }
+        while (ptr.getNext().getNext() != null){
+            ptr = ptr.getNext();
+        }
+        SNode tmp = ptr;
+        ptr.setNext(null);
+        tmp = null;
+        lengh --;
     }
 
     public void insert(T data) {
-        headNode = new SNode<>(data,headNode);
+        if (lengh == 0){
+            headNode.setElement(data);
+        }else {
+            headNode = new SNode<>(data,headNode);
+        }
         lengh++;
     }
-
+    // TODO O(n)
     public void delete(T data) {
         SNode node = headNode;
         if (node.getElement().equals(data)){
@@ -116,12 +117,12 @@ public class LRUBaseLinkedList<T> {
     class SNode<T> {
         T element;
         SNode next;
-        
+
         public SNode(){
             this.element = null;
             this.next = null;
         }
-        
+
         public SNode(T data,SNode next){
             this.element = data;
             this.next = next;
