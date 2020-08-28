@@ -4,6 +4,15 @@ package com.lzz.algorithm.linkedlist;
 /**
  * 基于单链表LRU算法
  */
+/**
+ *       分析时间和空间复杂度
+ * TODO 1、单链表反转
+ *      2、链表中环的检测
+ *      3、两个有序的链表合并
+ *      4、删除链表倒数第n个结点
+ *      5、求链表的中间结点
+ *      6、如果字符串是通过单链表来存储的，如何判断是一个回文串呢
+ */
 public class LRUBaseLinkedList<T> {
 
     private static final int DEFAULT_CAPACITY = 10;
