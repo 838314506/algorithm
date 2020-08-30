@@ -6,7 +6,7 @@ package com.lzz.algorithm.linkedlist;
  *      3、两个有序的链表合并
  *      4、删除链表倒数第n个结点
  *      5、求链表的中间结点
- *  TODO    6、如果字符串是通过单链表来存储的，如何判断是一个回文串呢
+ *      6、如果字符串是通过单链表来存储的，如何判断是一个回文串呢
  */
 public class LinkedListUtil {
 
