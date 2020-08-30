@@ -22,7 +22,15 @@ public class LRUBaseLinkedList<T> {
     private int capacity;
 
     private int lengh;
-    
+
+    public SNode<T> getHeadNode() {
+        return headNode;
+    }
+
+    public void setHeadNode(SNode<T> headNode) {
+        this.headNode = headNode;
+    }
+
     public static void main(String[] arg){
         LRUBaseLinkedList<Integer> linkedList = new LRUBaseLinkedList<>(10);
         linkedList.add(5);
@@ -37,7 +45,26 @@ public class LRUBaseLinkedList<T> {
         linkedList.add(0);
         linkedList.add(4);
         linkedList.add(5);
-        System.out.println(linkedList.contain(5).getElement());
+        linkedList.print(linkedList.getHeadNode());
+        System.out.println("==============单链表的反转");
+        linkedList.reverse(linkedList.getHeadNode());
+    }
+
+    /**
+     * 单链表的反转
+     * @param nodes
+     */
+    public void reverse(SNode nodes){
+        SNode<Integer> reverse = null;
+        SNode node = nodes;
+        while (node != null){
+//            reverse = new SNode<>((Integer) node.getElement(),reverse);
+            SNode next = node.getNext();
+            node.setNext(reverse);
+            reverse = node;
+            node = next;
+        }
+        print(reverse);
     }
 
     public LRUBaseLinkedList() {
@@ -50,6 +77,14 @@ public class LRUBaseLinkedList<T> {
         this.headNode = new SNode<>();
         this.capacity = capacity;
         this.lengh = 0;
+    }
+
+    public  void print(SNode nodes){
+        SNode  node = nodes;
+        while (node != null){
+            System.out.print(node.getElement() + "--->");
+            node = node.getNext();
+        }
     }
 
     // TODO O(n)
