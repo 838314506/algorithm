@@ -25,8 +25,8 @@ public class QuickSort {
         int right = rightBound - 1;
 
         while (left <= right){
-            while (left <= right && arr[left] <= provit) if (arr[left] <= provit) left ++;
-            while (left <= right && arr[right] > provit) if (arr[left] > provit) right --;
+            while (left <= right && arr[left] <= provit) left ++;
+            while (left <= right && arr[right] > provit) right --;
             if (left < right) swap(arr,left,right);
         }
         if (left < rightBound) swap(arr,left,rightBound);
