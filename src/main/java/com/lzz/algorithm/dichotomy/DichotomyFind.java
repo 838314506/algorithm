@@ -120,6 +120,7 @@ public class DichotomyFind {
      * 满足条件：1、数组
      *          2、有序
      *          3、静态数据，如果删除、插入操作过多则不适合使用
+     * 适用场景：在“近似”查找问题
      * @param arr
      * @param n
      * @param value
