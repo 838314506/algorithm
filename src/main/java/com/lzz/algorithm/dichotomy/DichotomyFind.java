@@ -1,5 +1,8 @@
 package com.lzz.algorithm.dichotomy;
 
+/**
+ * 二分查找
+ */
 public class DichotomyFind {
 
     public static void main(String[] arg){
