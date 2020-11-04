@@ -25,7 +25,7 @@ public class MergeSort {
         //边界鉴定，如果是左小于右报错
         if (left > right) throw new RuntimeException();
         //分两半
-        int mid = left + ( right - left ) / 2;
+        int mid = left + (( right - left ) >> 1);
         //左排序
         sort(arr,left,mid);
         //右排序
