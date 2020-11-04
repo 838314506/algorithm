@@ -2,6 +2,7 @@ package com.lzz.algorithm.sort;
 
 /**
  * 归并算法
+ * 查找某个数的左边或右边小于该数的小和
  */
 public class MergeSort {
 

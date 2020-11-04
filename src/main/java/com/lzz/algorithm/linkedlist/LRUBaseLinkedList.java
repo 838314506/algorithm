@@ -13,7 +13,7 @@ public class LRUBaseLinkedList<T> {
 
     private int capacity;
 
-    private int lengh;
+    private int length;
 
     public Node<T> getHeadNode() {
         return headNode;
@@ -49,13 +49,13 @@ public class LRUBaseLinkedList<T> {
     public LRUBaseLinkedList() {
         this.headNode = new Node<>();
         this.capacity = DEFAULT_CAPACITY;
-        this.lengh = 0;
+        this.length = 0;
     }
 
     public LRUBaseLinkedList(int capacity) {
         this.headNode = new Node<>();
         this.capacity = capacity;
-        this.lengh = 0;
+        this.length = 0;
     }
 
    
@@ -78,7 +78,7 @@ public class LRUBaseLinkedList<T> {
             delete(node);
             insert(node);
         }else {
-            if (lengh >= capacity){
+            if (length >= capacity){
                 deleteTailNode();
             }
             insert(node);
@@ -97,16 +97,16 @@ public class LRUBaseLinkedList<T> {
         Node tmp = ptr;
         ptr.setNext(null);
         tmp = null;
-        lengh --;
+        length --;
     }
 
     public void insert(T data) {
-        if (lengh == 0){
+        if (length == 0){
             headNode.setElement(data);
         }else {
             headNode = new Node<>(data,headNode);
         }
-        lengh++;
+        length++;
     }
     // TODO O(n)
     public void delete(T data) {
