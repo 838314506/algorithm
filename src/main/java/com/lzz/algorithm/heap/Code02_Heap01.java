@@ -116,9 +116,9 @@ public class Code02_Heap01 {
     }
 
     public static void main(String[] args) {
-        int value = 10;
-        int limit = 10;
-        int testTimes = 10;
+        int value = 100;
+        int limit = 100;
+        int testTimes = 100;
         for (int i = 0; i < testTimes; i++) {
             int curLimit = (int) (Math.random() * limit) + 1;
             MyMaxHeap my = new MyMaxHeap(curLimit);

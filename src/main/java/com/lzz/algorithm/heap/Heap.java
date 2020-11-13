@@ -18,12 +18,12 @@ public class Heap {
         }
 
         public boolean isFull(){
-            return heapSize == heap.length;
+            return heapSize == limit;
         }
 
         //TODO 验证 1、往堆内放入数据
         public void push(int value){
-            if (heapSize > limit){
+            if (heapSize == limit){
                 throw new RuntimeException("the heap is full!");
             }
             heap[heapSize] = value;
@@ -32,30 +32,32 @@ public class Heap {
 
         //TODO 2、取出堆内最大的数并已删除
         public int pop(){
-            if (heapSize == 0){
-                throw new RuntimeException("the heap is empty");
-            }
             int result = heap[0];
             swap(heap,0,--heapSize);
             heapify(heap,0,heapSize);
             return result;
         }
 
+
         //往堆内插入数据,从下往上找
         public void heapInsert(int[] arr,int index){
-            while (arr[(index - 1) / 2 ] < arr[index]){
-                swap(arr,(index - 1) / 2,index);
+//            while (arr[(index - 1) / 2 ] < arr[index]){
+//                swap(arr,(index - 1) / 2,index);
+//                index = (index - 1) / 2;
+//            }
+            while (arr[index] > arr[(index - 1) / 2]) {
+                swap(arr, index, (index - 1) / 2);
                 index = (index - 1) / 2;
             }
         }
 
         //删除最大的数，从上往下找
         public void heapify(int[] arr,int index,int heapSize){
-            int left = 2 * index + 1;
+            int left = index * 2 + 1;
             while (left < heapSize){
-                int largest = arr[left + 1] < heapSize && arr[left + 1] > arr[index] ? left + 1 : left;
+                int largest = left + 1 < heapSize && arr[left + 1] > arr[left] ? left + 1 : left;
                 largest = arr[largest] > arr[index] ? largest : index;
-                if (arr[index] == arr[left]){
+                if (largest == index){
                     break;
                 }
                 swap(arr,index,largest);
@@ -64,11 +66,13 @@ public class Heap {
             }
         }
 
+
         public void swap(int[] arr,int i,int j){
             int temp = arr[i];
             arr[i] = arr[j];
             arr[j] = temp;
         }
+
         public static class RightMaxHeap {
             private int[] arr;
             private final int limit;
@@ -110,9 +114,9 @@ public class Heap {
         }
 
         public static void main(String[] args) {
-            int value = 10;
-            int limit = 10;
-            int testTimes = 100;
+            int value = 100;
+            int limit = 100;
+            int testTimes = 10;
             for (int i = 0; i < testTimes; i++) {
                 int curLimit = (int) (Math.random() * limit) + 1;
                 MyHeap my = new MyHeap(curLimit);
@@ -120,10 +124,10 @@ public class Heap {
                 int curOpTimes = (int) (Math.random() * limit);
                 for (int j = 0; j < curOpTimes; j++) {
                     if (my.isEmpty() != test.isEmpty()) {
-                        System.out.println("Oops!");
+                        System.out.println("empty Oops!");
                     }
                     if (my.isFull() != test.isFull()) {
-                        System.out.println("Oops!");
+                        System.out.println("full Oops!");
                     }
                     if (my.isEmpty()) {
                         int curValue = (int) (Math.random() * value);
@@ -131,7 +135,7 @@ public class Heap {
                         test.push(curValue);
                     } else if (my.isFull()) {
                         if (my.pop() != test.pop()) {
-                            System.out.println("Oops!");
+                            System.out.println(" full pop Oops!");
                         }
                     } else {
                         if (Math.random() < 0.5) {
@@ -140,7 +144,7 @@ public class Heap {
                             test.push(curValue);
                         } else {
                             if (my.pop() != test.pop()) {
-                                System.out.println("Oops!");
+                                System.out.println("pop Oops!");
                             }
                         }
                     }
