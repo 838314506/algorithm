@@ -1,16 +1,16 @@
 package com.lzz.algorithm.slowFastPointer;
 
-import com.lzz.algorithm.heap.Heap;
 
-import java.util.Random;
-
+/**
+ * 输入头，奇数返回中点，偶数上中点
+ */
 public class MidPoint {
 
     private Node head;
 
     public static void main(String[] arg){
         MidPoint midPoint = new MidPoint();
-        for (int i = 0;i < 5; i ++){
+        for (int i = 0;i < 7; i ++){
             midPoint.add(new Node(i,null));
         }
         Node midNode = midPoint.getMidNode(midPoint.head);
@@ -40,7 +40,7 @@ public class MidPoint {
         Node slow = head;
         Node fast = head;
 
-        while (fast != null || fast.getNext() != null){
+        while (fast.getNext() != null && fast.getNext().getNext() != null){
             slow = slow.getNext();
             fast = fast.getNext().getNext();
         }
