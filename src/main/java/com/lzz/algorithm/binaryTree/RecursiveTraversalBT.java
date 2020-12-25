@@ -14,30 +14,31 @@ public class RecursiveTraversalBT {
             this.value = value;
         }
     }
-
+    //先序
     public static void pre(Node head){
         if (head == null){
             return;
         }
-
         System.out.println(head.value);
         pre(head.left);
         pre(head.right);
     }
+    //中序
     public static void in(Node head){
         if (head == null){
             return;
         }
-        pre(head.left);
+        in(head.left);
         System.out.println(head.value);
-        pre(head.right);
+        in(head.right);
     }
+    //后序
     public static void pos(Node head){
         if (head == null){
             return;
         }
-        pre(head.left);
-        pre(head.right);
+        pos(head.left);
+        pos(head.right);
         System.out.println(head.value);
     }
 
