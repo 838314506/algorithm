@@ -1,7 +1,5 @@
 package com.lzz.algorithm.binaryTree;
 
-import javafx.beans.binding.When;
-
 import java.util.Stack;
 
 /**
@@ -47,16 +45,15 @@ public class UnRecursiveTraversalBT {
     public static void in(Node head){
         if (head == null) return;
         Stack<Node> stack = new Stack<>();
-        stack.add(head);
-        while (!stack.isEmpty()){
-            if (head.left != null){
+//        stack.add(head);
+        while (!stack.isEmpty() || head != null){
+            if (head != null){
+                stack.push(head);
                 head = head.left;
-                stack.add(head);
             }else{
-                if (head.right != null){
-                    head = head.right;
-                    stack.add(head);
-                }
+                head = stack.pop();
+                System.out.println(head.value);
+                head = head.right;
             }
         }
     }
@@ -96,9 +93,9 @@ public class UnRecursiveTraversalBT {
         head.right.left = new Node(6);
         head.right.right = new Node(7);
 
-        pre(head);
+//        pre(head);
         System.out.println("========");
-//        in(head);
+        in(head);
         System.out.println("========");
         pos1(head);
         System.out.println("========");
