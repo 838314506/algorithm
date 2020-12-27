@@ -84,6 +84,28 @@ public class UnRecursiveTraversalBT {
         }
     }
 
+    /**
+     * 后序遍历，炫技版
+     * @param h
+     */
+    public static void pos2(Node h){
+        if (h == null) return;
+        Stack<Node> stack = new Stack<>();
+        Node c = h;
+        stack.push(h);
+        while (! stack.isEmpty()){
+            c = stack.peek();
+            if (c.left != null && h != c.left && h != c.right){
+                stack.push(c.left);
+            }else if (c.right != null && h != c.right){
+                stack.push(c.right);
+            }else {
+                System.out.println(stack.pop().value);
+                h = c;
+            }
+        }
+    }
+
     public static void main(String[] arg){
         Node head = new Node(1);
         head.left = new Node(2);
@@ -99,7 +121,7 @@ public class UnRecursiveTraversalBT {
         System.out.println("========");
         pos1(head);
         System.out.println("========");
-//        pos2(head);
+        pos2(head);
         System.out.println("========");
     }
 }
