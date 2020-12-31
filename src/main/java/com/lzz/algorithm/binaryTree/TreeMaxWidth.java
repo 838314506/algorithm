@@ -21,6 +21,7 @@ public class TreeMaxWidth {
         }
     }
 
+
     //通过map
     public static int maxWidthUseMap(Node h){
         if (h == null) return 0;
@@ -32,15 +33,17 @@ public class TreeMaxWidth {
         //node为key，层数为value
         Map<Node,Integer> map = new HashMap<>();
         map.put(h,1);
+
+        // key 在 哪一层，value
         while (! queue.isEmpty()){
             Node currentNode = queue.poll();
             int curNodeLevel = map.get(currentNode);
             if (currentNode.left != null){
-                map.put(currentNode.left,curLevel + 1);
+                map.put(currentNode.left,curNodeLevel + 1);
                 queue.add(currentNode.left);
             }
             if (currentNode.right != null){
-                map.put(currentNode.right,curLevel + 1);
+                map.put(currentNode.right,curNodeLevel + 1);
                 queue.add(currentNode.right);
             }
             if (curNodeLevel == curLevel){
@@ -56,18 +59,36 @@ public class TreeMaxWidth {
         return max;
     }
 
+
     //不用map
     public static int maxWidthNoMap(Node h){
         if (h == null) return 0;
         int max = 0;
         int curLevelCount = 0;
+        Node curEnd = h;
+        Node nextEnd = null;
         Queue<Node> queue = new LinkedList<>();
         queue.add(h);
         while (! queue.isEmpty()){
-
+            Node cur = queue.poll();
+            if (cur.left != null){
+                queue.add(cur.left);
+                nextEnd = cur.left;
+            }
+            if (cur.right != null){
+                queue.add(cur.right);
+                nextEnd = cur.right;
+            }
+            curLevelCount ++;
+            if (cur == curEnd){
+                max = Math.max(max,curLevelCount);
+                curLevelCount = 0;
+                curEnd = nextEnd;
+            }
         }
         return max;
     }
+
 
     // for test
     public static Node generateRandomBST(int maxLevel, int maxValue) {
@@ -84,7 +105,6 @@ public class TreeMaxWidth {
         head.right = generate(level + 1, maxLevel, maxValue);
         return head;
     }
-
 
     public static void main(String[] args){
         int maxLevel = 10;
