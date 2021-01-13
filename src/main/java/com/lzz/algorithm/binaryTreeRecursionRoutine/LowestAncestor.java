@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
+/**
+ * 找到两个节点的最低交汇点
+ */
 public class LowestAncestor {
 
     public static class Node {
@@ -53,12 +56,42 @@ public class LowestAncestor {
         return process(head,o1,o2).ans;
     }
 
-    public static TreeInfo process(Node head,Node o1,Node o2){
-        return null;
+    public static TreeInfo process(Node x,Node o1,Node o2){
+        if (x == null) {
+            return new TreeInfo(false,false,null);
+        }
+        TreeInfo left = process(x.left, o1, o2);
+        TreeInfo right = process(x.right, o1, o2);
+        //在子树是否找到A，在子树是否找到B
+        boolean findA = x == o1 || left.findA || right.findA;
+        boolean findB = x == o2 || left.findB || right.findB;
+        Node ans = null;
+        if (left.ans != null){
+            //如果左树上有结果
+            ans = left.ans;
+        }else if(right.ans != null){
+            //如果右树上有结果
+            ans = right.ans;
+        }else {
+            //两棵树都没有结果，但是找到了A也找到了B那么，当前节点就是交汇点
+            if (findA && findB){
+                ans = x;
+            }
+        }
+
+        return new TreeInfo(findA,findB,ans);
     }
 
     public static class TreeInfo{
+        boolean findA;
+        boolean findB;
         Node ans;
+
+        public TreeInfo(boolean findA,boolean findB,Node ans){
+            this.findA = findA;
+            this.findB = findB;
+            this.ans = ans;
+        }
     }
 
 
