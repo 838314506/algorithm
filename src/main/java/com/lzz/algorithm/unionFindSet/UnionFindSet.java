@@ -71,7 +71,7 @@ public class UnionFindSet {
             if (xHead != yHead){
                 int xSize = size.get(xHead);
                 int ySize = size.get(yHead);
-                Node big = xSize > ySize ? xHead : yHead;
+                Node big = xSize >= ySize ? xHead : yHead;
                 Node small = big == xHead ? yHead : xHead;
                 parentNodes.put(small,big);
                 size.put(big,xSize + ySize);
