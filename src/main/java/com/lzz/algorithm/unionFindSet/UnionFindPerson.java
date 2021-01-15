@@ -48,25 +48,31 @@ public class UnionFindPerson {
             }
         }
 
-        //TODO 暴力方法实现对数器
+        //暴力方法实现对数器
         public int personCount1(){
             //先用某个属性来
-            int pCount = 0;
+            List<Person> p2 = new ArrayList<>();
             for (int i = 0;i < persons.size();i ++){
-                Person p1 = persons.get(i);
-                for (int j = 0;j < persons.size();j ++){
-                    Person p2 = persons.get(j);
-                    if (p1 == p2){
-                        continue;
+                Person p = persons.get(i);
+                if (p2.isEmpty()){
+                    p2.add(p);
+                }else {
+                    boolean isContain = false;
+                    for (int j = 0;j < p2.size();j ++){
+                        if (isContain){
+                            break;
+                        }
+                        Person per2 = p2.get(j);
+                        if (p.cardId.equals(per2.cardId)
+                                || p.bStationId.equals(per2.bStationId)
+                                || p.gitId.equals(per2.gitId)){
+                            isContain = true;
+                        }
                     }
-                    if (p2.cardId != p1.cardId
-                            && p2.bStationId != p1.bStationId
-                            && p2.gitId != p1.gitId){
-                        pCount ++;
-                    }
+                    if (!isContain) p2.add(p);
                 }
             }
-            return pCount;
+            return p2.size();
         }
 
         public int personCount2(){
@@ -85,9 +91,13 @@ public class UnionFindPerson {
         }
 
         public static void main(String[] arg){
-            UnionFind uf = new UnionFind(10);
-//            System.out.println(uf.personCount2());
-            System.out.println(uf.personCount1());
+            UnionFind uf = new UnionFind(100);
+            for (int i = 0;i < 100;i ++){
+                if (uf.personCount2() != uf.personCount1()){
+                    System.out.println("oops!");
+                }
+            }
+            System.out.println("finish!");
         }
     }
 }
