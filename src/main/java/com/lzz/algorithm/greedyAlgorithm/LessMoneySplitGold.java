@@ -15,8 +15,36 @@ import java.util.PriorityQueue;
 public class LessMoneySplitGold {
 
     public static int lessMoney1(int[] arr){
+        if(arr.length == 0){
+            return 0;
+        }
+        return process(arr,0);
+    }
 
-        return 0;
+    public static int process(int[] arr,int pre){
+        if (arr.length == 1){
+            return pre;
+        }
+        //10,20,30
+        int ans = Integer.MAX_VALUE;
+        for (int i = 0;i < arr.length;i ++){
+            for (int j = i + 1;j < arr.length;j ++){
+                ans = Math.min(ans,process(mergeTwoNum(arr,i,j),pre + arr[i] + arr[j]));
+            }
+        }
+        return ans;
+    }
+
+    public static int[] mergeTwoNum(int[] arr,int start,int end){
+        int[] ans = new int[arr.length - 1];
+        int index = 0;
+        for (int i = 0;i < arr.length;i ++){
+            if (i != start && i != end){
+                ans[index++] = arr[i];
+            }
+        }
+        ans[index] = arr[start] + arr[end];
+        return ans;
     }
 
     public static int lessMoney2(int[] arr){
@@ -30,7 +58,7 @@ public class LessMoneySplitGold {
         while (pQ.size() > 1){
             cur = pQ.poll() + pQ.poll();
             sum += cur;
-            pQ.add(sum);
+            pQ.add(cur);
         }
         return sum;
     }
@@ -49,8 +77,10 @@ public class LessMoneySplitGold {
         int maxSize = 6;
         int maxValue = 1000;
         for (int i = 0; i < testTime; i++) {
-            int[] arr = generateRandomArray(maxSize, maxValue);
-            if (lessMoney1(arr) != lessMoney2(arr)) {
+            int[] arr = generateRandomArray(maxSize,maxValue);
+            int i1 = lessMoney1(arr);
+            int i2 = lessMoney2(arr);
+            if (i1 != i2) {
                 System.out.println("Oops!");
             }
         }
