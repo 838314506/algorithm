@@ -27,9 +27,33 @@ public class LowestLexicography {
         return ans.size() == 0 ? "" : ans.first();
     }
 
+    public static String[] removeIndexString(String[] strs,int index){
+        String[] newStrs = new String[strs.length - 1];
+        int count = 0;
+        for (int i = 0;i < strs.length;i ++ ){
+            if (i != index && count < newStrs.length){
+                newStrs[count ++] = strs[i];
+            }
+        }
+        return newStrs;
+    }
+
     public static TreeSet<String> process(String[] arr){
         TreeSet<String> result = new TreeSet<>();
-
+        //尝试遍历中止条件
+        if (arr.length == 0){
+            result.add("");
+            return result;
+        }
+        for (int i = 0;i < arr.length;i ++){
+            String cur = arr[i];
+            //深度遍历，保留原有字符串后并去掉
+            String[] newStrs = removeIndexString(arr, i);
+            TreeSet<String> nexts = process(newStrs);
+            for (String next : nexts){
+                result.add(cur + next);
+            }
+        }
         return result;
     }
 
