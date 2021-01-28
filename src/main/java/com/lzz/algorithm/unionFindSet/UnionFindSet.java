@@ -87,14 +87,18 @@ public class UnionFindSet {
             nodes.add(4);
             nodes.add(5);
             nodes.add(6);
+            nodes.add(7);
             UnionFindNode ufn = new UnionFindNode(nodes);
             ufn.parentNodes.put(ufn.nodeInfo.get(1),ufn.nodeInfo.get(3));
             ufn.parentNodes.put(ufn.nodeInfo.get(2),ufn.nodeInfo.get(3));
+            ufn.parentNodes.put(ufn.nodeInfo.get(6),ufn.nodeInfo.get(5));
+            ufn.parentNodes.put(ufn.nodeInfo.get(7),ufn.nodeInfo.get(6));
             ufn.parentNodes.put(ufn.nodeInfo.get(4),ufn.nodeInfo.get(5));
             ufn.size.put(ufn.nodeInfo.get(3),3);
             ufn.size.put(ufn.nodeInfo.get(5),2);
 //            System.out.println(ufn.isSameSet(1,2));
             ufn.union(3,5);
+            ufn.union(3,6);
             System.out.println("finished");
         }
     }
