@@ -39,6 +39,43 @@ public class Knapsack {
         return Math.max(p1,p2);
     }
 
+    /**
+     * 将暴力递归改为动态规划(计划搜索)
+     * 0 1 2 3 4 5 6 7 8 9
+     * 1                 *
+     * 2
+     * 3
+     * 4
+     * - - - - - - - - - -
+     * 5 0 0 0 0 0 0 0 0 0
+     * *为最终的结果位置
+     * x轴为w的长度
+     * y轴为剩余重量，一定不会超过bag
+     * 申请dp数组，初始值默认为0，下标5一列，表示在index == w.length的位置数据是有效的，并且当前层结果依赖于上一层的数据结果
+     * 所以只需要把所有格子填满，最终通过上一层数据推出最终结果即可
+     * @param w
+     * @param v
+     * @param bag
+     * @return
+     */
+    public static int dynamicPlan(int[] w,int[] v,int bag){
+        int N = w.length - 1;
+        int[][] dp = new int[N + 1][bag + 1];
+        for (int index = N - 1; index >= 0;index --){
+            for (int rest = 0;rest <= bag;rest ++){
+                //此部分全部由暴力递归中代码改造而来
+                int p1 = dp[index + 1][rest];
+                int p2 = -1;
+                //为防止越界，先进行判断再进行p2的处理
+                if (rest - w[index] >= 0){
+                    p2 = v[index] + dp[index + 1][rest - w[index]];
+                }
+                dp[index][rest] = Math.max(p1,p2);
+            }
+        }
+        return dp[0][bag];
+    }
+
 
     //对数器
     public static int dp(int[] w,int[] v,int bag){
@@ -69,7 +106,9 @@ public class Knapsack {
 
         int result = maxValue(w, v, 16);
         int dp = dp(w, v, 16);
+        int dp2 = dynamicPlan(w,v,16);
         System.out.println(result);
         System.out.println(dp);
+        System.out.println(dp2);
     }
 }

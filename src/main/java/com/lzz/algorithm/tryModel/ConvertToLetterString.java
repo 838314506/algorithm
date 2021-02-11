@@ -23,8 +23,8 @@ public class ConvertToLetterString {
         if (str[index] == '0') {
             return 0;
         }
-        //可能性单一的情况下
         int way = process(str, index + 1);
+        //可能性单一的情况下
         //a-z决定最高位一定是2，并且只有2位数字
         if (index + 1 < str.length && (str[index] - '0') * 10 + (str[index + 1] - '0') < 27) {
             //下一次决策从index+2开始
@@ -33,31 +33,31 @@ public class ConvertToLetterString {
         return way;
     }
 
-    //对数器
-    public static int dp(String str) {
-        if (str == null || str.length() == 0) {
+    public static int dpWay2(String s){
+        if (s == null || s.length() == 0) {
             return 0;
         }
-        char[] strs = str.toCharArray();
-        int N = strs.length;
+        char[] str = s.toCharArray();
+        int N = str.length;
         int[] dp = new int[N + 1];
         dp[N] = 1;
-        for (int i = N - 1; i >= 0; i--) {
-            int way = dp[i + 1];
-            if (strs[i] != '0'){
-                if (i + 1 < N && (strs[i] - '0') * 10 + strs[i + 1] - '0' < 27) {
-                    way += dp[i + 2];
+        for (int i = N - 1;i >= 0;i --){
+            if (str[i] != '0') {
+                dp[i] =  dp[i + 1];
+                if (i + 1 < str.length && (str[i] - '0') * 10 + (str[i + 1] - '0') < 27) {
+                    dp[i] += dp[i + 2];
                 }
-                dp[i] = way;
             }
         }
         return dp[0];
     }
 
 
+
+
     public static void main(String[] args) {
         String str = "7210231231232031203123";
         System.out.println(number(str));
-        System.out.println(dp(str));
+        System.out.println(dpWay2(str));
     }
 }
